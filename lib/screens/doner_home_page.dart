@@ -5,7 +5,6 @@ class DonerHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dummy spotlight and donation request data
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -16,7 +15,7 @@ class DonerHomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSpotlightCard(),
+            _buildSpotlightSection(),
             SizedBox(height: 16),
             _buildBecomeDonorSection(),
             SizedBox(height: 16),
@@ -28,51 +27,58 @@ class DonerHomePage extends StatelessWidget {
     );
   }
 
-  // Updated spotlight card
-  Widget _buildSpotlightCard() {
-    return Container(
-      height: 180,
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.pink[100],
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+  // Spotlight section with heading
+  Widget _buildSpotlightSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Spotlight', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+        SizedBox(height: 8),
+        Container(
+          height: 180,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.pink[100],
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  'Help families in village by donating food',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      'Help families in village by donating food',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                  Icon(Icons.food_bank, size: 50, color: Colors.redAccent),
+                ],
               ),
-              Icon(Icons.food_bank, size: 50, color: Colors.redAccent),
+              SizedBox(height: 10),
+              Text('25% funds collected - 20 days left', style: TextStyle(fontSize: 12)),
+              SizedBox(height: 12),
+              LinearProgressIndicator(
+                value: 0.25,
+                backgroundColor: Colors.grey[300],
+                color: Colors.green,
+                minHeight: 8,
+              ),
+              SizedBox(height: 12),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                child: Text('Donate Now'),
+              ),
             ],
           ),
-          SizedBox(height: 10),
-          Text('25% funds collected - 20 days left', style: TextStyle(fontSize: 12)),
-          SizedBox(height: 12),
-          LinearProgressIndicator(
-            value: 0.25,
-            backgroundColor: Colors.grey[300],
-            color: Colors.green,
-            minHeight: 8,
-          ),
-          SizedBox(height: 12),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Donate Now'),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  // "Become a Food Donor Today" section
+  // "Become a Food Donor Today" section with 3 icons
   Widget _buildBecomeDonorSection() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -99,9 +105,8 @@ class DonerHomePage extends StatelessWidget {
     );
   }
 
-  // Donation Request list with images
+  // Donation Request section
   Widget _buildDonationRequestList() {
-    // Dummy data - replace with dynamic data
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -110,13 +115,13 @@ class DonerHomePage extends StatelessWidget {
         _buildRequestCard(
           'Share Your Food, Share Your Love',
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'assets/donation1.jpg',
+          'assets/donation1.jpg', // Add actual image here
         ),
         SizedBox(height: 12),
         _buildRequestCard(
           'Share Your Food, Share Your Love',
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'assets/donation2.jpg',
+          'assets/donation2.jpg', // Add actual image here
         ),
       ],
     );
