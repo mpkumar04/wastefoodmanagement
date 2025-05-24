@@ -49,6 +49,46 @@ class _DonationPageState extends State<DonationPage> {
     });
   }
 }
+  // Function to format the slider value to time format
+  String getFormattedTime(double sliderValue) {
+    int hours = sliderValue.toInt();
+    int minutes = ((sliderValue - hours) * 60).toInt();
+    String period = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours == 0 ? 12 : hours; // Fix for 12 AM/PM representation
+
+    return '$hours:$minutes $period';
+  }
+
+  // Method to select location by tapping on map
+  void _onMapTapped(LatLng position) {
+    setState(() {
+      _currentLocation = position;
+      isLocationSelected = true;
+      _locationController.text = "Lat: ${position.latitude}, Lon: ${position.longitude}";
+    });
+  }
+
+  // Date picker function
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    ) ?? selectedDate;
+    if (picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation(); // Fetch current location when the page is created
+  }
 
 
 
