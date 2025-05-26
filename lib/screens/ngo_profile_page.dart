@@ -1,4 +1,15 @@
 
+class _NgoProfilePageState extends State<NgoProfilePage> {
+  bool _isEditing = false;
+  int _selectedIndex = 3; //Profile tab
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+
+  String ngoLogoAsset = 'assets/ngo_logo.png';
+
 import 'package:flutter/material.dart';
 import 'ngo_home_screen.dart';
 import 'ngo_donation_map_screen.dart';
@@ -11,6 +22,7 @@ class NgoProfilePage extends StatefulWidget {
   @override
   _NgoProfilePageState createState() => _NgoProfilePageState();
 }
+
 
   @override
   void initState() {
