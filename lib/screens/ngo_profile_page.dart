@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'ngo_home_screen.dart';
 import 'ngo_donation_map_screen.dart';
@@ -10,4 +11,23 @@ class NgoProfilePage extends StatefulWidget {
   @override
   _NgoProfilePageState createState() => _NgoProfilePageState();
 }
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: 'Ngo Name');
+    _emailController = TextEditingController(text: 'ngo@gmail.com');
+    _phoneController = TextEditingController(text: '+1234567890');
+    _passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
 

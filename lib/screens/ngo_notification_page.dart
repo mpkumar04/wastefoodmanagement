@@ -43,4 +43,16 @@ void _onItemTapped(int index) {
     _selectedIndex = index;
   });
 }
+final List<Map<String, String>> notifications = [
+  {
+    'title': 'Donation has been sent to Social Project.',
+    'subtitle': 'Thank you for your contribution to our community.',
+    'date': '6 Apr 2024',
+  },
+  {
+    'title': 'New Food Donation Request',
+    'subtitle': 'Urgent need for meals in local area.',
+    'date': '5 Apr 2024',
+  },
+];
 
