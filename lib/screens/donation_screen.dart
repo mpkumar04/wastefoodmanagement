@@ -89,6 +89,105 @@ class _DonationPageState extends State<DonationPage> {
     super.initState();
     _getCurrentLocation(); // Fetch current location when the page is created
   }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);  // Handle back navigation
+          },
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Text(
+            'Donate',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            // Food Item Input
+            TextField(
+              controller: _foodItemController,
+              decoration: InputDecoration(
+                labelText: 'Food Item (s)',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 12),
+
+            // Food Description Input
+            TextField(
+              controller: _foodDescriptionController,
+              decoration: InputDecoration(
+                labelText: 'Food Description',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 12),
+
+            // Pickup Day Date Picker
+            Row(
+              children: [
+                Text('Pickup Day: ${selectedDate.toLocal()}'.split(' ')[0]),
+                IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () => _selectDate(context),  // Call the _selectDate method
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+
+            // Location: Allow both manual input and fetching current location
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _locationController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter your location',
+                      border: OutlineInputBorder(),
+                    ),
+                    // This allows the user to manually input the location
+                  ),
+                ),
+                SizedBox(width: 8),
+                IconButton(
+                  icon: Icon(Icons.location_on),
+                  onPressed: _getCurrentLocation, // Fetch current location
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+
+            // Google Map to select location manually
+            SizedBox(
+              height: 200,
+              child: GoogleMap(
+                onMapCreated: (GoogleMapController controller) {
+                  mapController = controller;
+                },
+                initialCameraPosition: CameraPosition(
+                  target: _currentLocation,
+                  zoom: 14,
+                ),
+                markers: {
+                  Marker(
+                    markerId: MarkerId('currentLocation'),
+                    position: _currentLocation,
+                    infoWindow: InfoWindow(title: "Selected Location"),
+                  ),
+                },
+                onTap: _onMapTapped, // Set location on tap
+              ),
+            ),
+            SizedBox(height: 12),
 
 
 
