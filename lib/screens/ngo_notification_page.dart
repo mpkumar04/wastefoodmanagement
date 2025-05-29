@@ -55,6 +55,29 @@ final List<Map<String, String>> notifications = [
     'date': '5 Apr 2024',
   },
 ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Notifications'),
+        backgroundColor: Colors.red,
+        automaticallyImplyLeading: false,
+      ),
+      body: ListView.separated(
+        itemCount: notifications.length,
+        separatorBuilder: (_, __) => const Divider(height: 1),
+        itemBuilder: (context, index) {
+          final notification = notifications[index];
+          return ListTile(
+            leading: const Icon(Icons.notifications, color: Colors.red),
+            title: Text(notification['title']!),
+            subtitle: Text(notification['subtitle']!),
+            trailing: Text(notification['date']!),
+          );
+        },
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.red,
@@ -72,4 +95,5 @@ final List<Map<String, String>> notifications = [
     );
   }
 }
+
 
