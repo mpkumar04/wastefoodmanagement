@@ -86,4 +86,17 @@ TextField(
     ),
   ),
 ),
+TextField(
+  decoration: InputDecoration(
+    hintText: "Pickup Instruction?",
+    prefixIcon: Icon(Icons.notes),
+    filled: true,
+    fillColor: Colors.grey[200],
+    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+),
 
