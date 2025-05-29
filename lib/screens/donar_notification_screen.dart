@@ -14,6 +14,9 @@ class NotificationScreen extends StatelessWidget {
           },
         ),
       ),
+      
+      bottomNavigationBar: _buildBottomNavBar(),
+
   // Notification card widget
   Widget _buildNotificationCard(String title, String description, String date) {
     return Card(
@@ -30,6 +33,7 @@ class NotificationScreen extends StatelessWidget {
         subtitle: Text(description),
         trailing: Text(date, style: TextStyle(color: Colors.grey[600])),
       ),
+
     );
   }
 
