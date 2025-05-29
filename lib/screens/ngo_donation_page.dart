@@ -37,4 +37,16 @@ Container(
     ),
   ),
 ),
+Expanded(
+  child: GoogleMap(
+    onMapCreated: _onMapCreated,
+    initialCameraPosition: CameraPosition(
+      target: _center,
+      zoom: 13.0,
+    ),
+    myLocationEnabled: true,
+    myLocationButtonEnabled: true,
+    zoomControlsEnabled: false,
+  ),
+),
 
