@@ -48,7 +48,6 @@ class _DonationPageState extends State<DonationPage> {
       _locationController.text = location;//pre-fill manual location input with fetched location
     });
   }
-}
   // Function to format the slider value to time format
   String getFormattedTime(double sliderValue) {
     int hours = sliderValue.toInt();
