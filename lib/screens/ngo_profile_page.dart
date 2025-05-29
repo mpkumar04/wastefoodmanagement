@@ -25,19 +25,10 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
 
 
 
-  late TextEditingController _nameController;
-  late TextEditingController _emailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _passwordController;
-
-  String ngoLogoAsset = 'assets/ngo_logo.png';
-
-  late TextEditingController _nameController;
-  late TextEditingController _emailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _passwordController;
   
   String ngoLogoAsset = 'assets/ngo_logo.png';
+
+  
 
   @override
   void initState() {
@@ -195,4 +186,51 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
       onTap: onTap,
     );
   }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Account'),
+        backgroundColor: Colors.red,
+        automaticallyImplyLeading: false,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _isEditing ? _buildEditProfile() : _buildReadOnlyProfile(),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: _toggleEdit,
+                child: Text(_isEditing ? 'Save Profile' : 'Edit Profile'),
+              ),
+              if (!_isEditing) _buildOptionList(),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.black54,
+        onTap: _onItemTapped,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        ],
+      ),
+    );
+  }
+}
 
