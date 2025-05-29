@@ -72,4 +72,18 @@ Container(
           fontWeight: FontWeight.bold,
         ),
       ),
+TextField(
+  decoration: InputDecoration(
+    hintText: "Colombo",
+    prefixIcon: Icon(Icons.location_on),
+    suffixIcon: Icon(Icons.filter_list),
+    filled: true,
+    fillColor: Colors.grey[200],
+    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+),
 
