@@ -119,5 +119,60 @@ obscureText: true,
 ],
 );
 }
+Widget _buildOptionList() {
+return Column(
+children: [
+Divider(height: 40),
+_buildListItem(Icons.collections, 'My Collection', () {}),
+_buildListItem(Icons.timer, 'Donation reminder', () {}),
+_buildListItem(Icons.lock, 'Change password', () {}),
+_buildListItem(Icons.settings, 'Settings', () {}),
+],
+);
+}
+
+Widget _buildListItem(IconData icon, String title, VoidCallback onTap) {
+return ListTile(
+leading: Icon(icon, color: Colors.red),
+title: Text(title),
+trailing: Icon(Icons.arrow_forward_ios),
+onTap: onTap,
+);
+}
+
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+appBar: AppBar(
+title: Text('Account'),
+backgroundColor: Colors.red,
+leading: BackButton(),
+),
+body: Padding(
+padding: EdgeInsets.all(16),
+child: SingleChildScrollView(
+child: Column(
+children: [
+_isEditing ? _buildEditProfile() : _buildReadOnlyProfile(),
+SizedBox(height: 30),
+ElevatedButton(
+style: ElevatedButton.styleFrom(
+backgroundColor: Colors.red,
+minimumSize: Size(double.infinity, 50),
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(8)),
+),
+onPressed: _toggleEdit,
+child: Text(_isEditing ? 'Save Profile' : 'Edit Profile'),
+),
+if (!_isEditing) _buildOptionList(), // show options only when not editing
+],
+),
+),
+),
+);
+}
+}
+
 
 
