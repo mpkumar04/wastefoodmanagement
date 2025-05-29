@@ -56,6 +56,39 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
     _passwordController.dispose();
     super.dispose();
   }
+  
+    void _onItemTapped(int index) {
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NgoHomeScreen()),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NgoDonationPage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NgoNotificationPage()),
+        );
+        break;
+      case 3:
+        //Already on Profile
+        break;
+    }
+
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   void _changeProfileImage() {
     if (!_isEditing) return;
     setState(() {
