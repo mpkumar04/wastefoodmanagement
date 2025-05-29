@@ -56,5 +56,24 @@ class NotificationScreen extends StatelessWidget {
 
     );
   }
+  // Bottom Navigation Bar
+  Widget _buildBottomNavBar() {
+    return BottomNavigationBar(
+      selectedItemColor: Colors.red,
+      unselectedItemColor: Colors.grey,
+      currentIndex: 2, // Set to "Notifications" page index (3rd item)
+      onTap: (index) {
+        // Handle tab changes
+        // Navigate to different pages as needed
+      },
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: 'Donate'),
+        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'), // Notification in 3rd position
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      ],
+    );
+  }
+}
 
 
