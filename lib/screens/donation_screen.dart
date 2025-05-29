@@ -188,6 +188,63 @@ class _DonationPageState extends State<DonationPage> {
               ),
             ),
             SizedBox(height: 12),
+            // Pickup Time Slider (Editable like progress bar)
+            Text('Pickup Time: ${getFormattedTime(pickupTimeSliderValue)}'),
+            Slider(
+              value: pickupTimeSliderValue,
+              min: 10.0,  // Min value for 10:00 AM
+              max: 21.0,  // Max value for 9:00 PM
+              divisions: 11,  // 11 divisions representing the hours from 10 AM to 9 PM
+              label: getFormattedTime(pickupTimeSliderValue),  // Format the label to show time
+              onChanged: (double value) {
+                setState(() {
+                  pickupTimeSliderValue = value;  // Update the slider value
+                });
+              },
+            ),
+            SizedBox(height: 12),
+
+            // Quantity Slider
+            Text('Quantity: ${quantity.toStringAsFixed(0)}'),
+            Slider(
+              value: quantity,
+              min: 1,
+              max: 100,
+              divisions: 100,
+              label: quantity.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  quantity = value;
+                });
+              },
+            ),
+            SizedBox(height: 12),
+
+            // Photo Picker (Placeholder)
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.add_a_photo),
+                  onPressed: () {
+                    // Logic for picking a photo
+                  },
+                ),
+                Text('Photo'),
+              ],
+            ),
+            SizedBox(height: 12),
+
+            // Checkbox for Terms
+            CheckboxListTile(
+              title: Text("I assure that food quality and hygiene has been maintained."),
+              value: isChecked,
+              onChanged: (bool? value) {
+                setState(() {
+                  isChecked = value!;
+                });
+              },
+            ),
+            SizedBox(height: 20),
 
 
 

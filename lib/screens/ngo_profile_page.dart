@@ -1,14 +1,5 @@
 
-class _NgoProfilePageState extends State<NgoProfilePage> {
-  bool _isEditing = false;
-  int _selectedIndex = 3; //Profile tab
 
-  late TextEditingController _nameController;
-  late TextEditingController _emailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _passwordController;
-
-  String ngoLogoAsset = 'assets/ngo_logo.png';
 
 import 'package:flutter/material.dart';
 import 'ngo_home_screen.dart';
@@ -22,7 +13,31 @@ class NgoProfilePage extends StatefulWidget {
   @override
   _NgoProfilePageState createState() => _NgoProfilePageState();
 }
+class _NgoProfilePageState extends State<NgoProfilePage> {
+  bool _isEditing = false;
+  int _selectedIndex = 3; //Profile tab
 
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+
+
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+
+  String ngoLogoAsset = 'assets/ngo_logo.png';
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+  
+  String ngoLogoAsset = 'assets/ngo_logo.png';
 
   @override
   void initState() {
@@ -41,6 +56,7 @@ class NgoProfilePage extends StatefulWidget {
     _passwordController.dispose();
     super.dispose();
   }
+  
     void _onItemTapped(int index) {
     if (index == _selectedIndex) return;
 
@@ -73,5 +89,110 @@ class NgoProfilePage extends StatefulWidget {
     });
   }
 
+  void _changeProfileImage() {
+    if (!_isEditing) return;
+    setState(() {
+      ngoLogoAsset = ngoLogoAsset == 'assets/ngo_logo.png'
+          ? 'assets/ngo_logo_alt.png'
+          : 'assets/ngo_logo.png';
+    });
+  }
 
+  void _toggleEdit() {
+    if (_isEditing) {
+      print('Saving profile info...');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profile saved')),
+      );
+      _passwordController.clear();
+    }
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
+
+  Widget _buildReadOnlyProfile() {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundImage: AssetImage(ngoLogoAsset),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(_nameController.text,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+              const SizedBox(height: 6),
+              Text(_emailController.text,
+                  style: TextStyle(fontSize: 18, color: Colors.grey[700])),
+              const SizedBox(height: 6),
+              Text(_phoneController.text,
+                  style: TextStyle(fontSize: 18, color: Colors.grey[700])),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  
+  Widget _buildEditProfile() {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: _changeProfileImage,
+          child: CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(ngoLogoAsset),
+          ),
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: _nameController,
+          decoration: const InputDecoration(labelText: 'Name'),
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _emailController,
+          decoration: const InputDecoration(labelText: 'Email'),
+          keyboardType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _phoneController,
+          decoration: const InputDecoration(labelText: 'Phone Number'),
+          keyboardType: TextInputType.phone,
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _passwordController,
+          decoration: const InputDecoration(labelText: 'Change Password'),
+          obscureText: true,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOptionList() {
+    return Column(
+      children: [
+        const Divider(height: 40),
+        _buildListItem(Icons.collections, 'My Collection', () {}),
+        _buildListItem(Icons.timer, 'Donation reminder', () {}),
+        _buildListItem(Icons.lock, 'Change password', () {}),
+        _buildListItem(Icons.settings, 'Settings', () {}),
+      ],
+    );
+  }
+
+  Widget _buildListItem(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.red),
+      title: Text(title),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: onTap,
+    );
+  }
 
