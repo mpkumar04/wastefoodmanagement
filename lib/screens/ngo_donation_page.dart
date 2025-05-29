@@ -99,4 +99,23 @@ TextField(
     ),
   ),
 ),
+SizedBox(
+  width: double.infinity,
+  height: 50,
+  child: ElevatedButton(
+    onPressed: () {
+      // Handle direction click
+    },
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Color(0xFFE53935),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+    child: const Text(
+      'Direction',
+      style: TextStyle(fontSize: 16, color: Colors.white),
+    ),
+  ),
+),
 
