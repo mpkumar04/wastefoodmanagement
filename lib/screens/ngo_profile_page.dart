@@ -41,5 +41,26 @@ class NgoProfilePage extends StatefulWidget {
     _passwordController.dispose();
     super.dispose();
   }
+  void _changeProfileImage() {
+    if (!_isEditing) return;
+    setState(() {
+      ngoLogoAsset = ngoLogoAsset == 'assets/ngo_logo.png'
+          ? 'assets/ngo_logo_alt.png'
+          : 'assets/ngo_logo.png';
+    });
+  }
+
+  void _toggleEdit() {
+    if (_isEditing) {
+      print('Saving profile info...');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profile saved')),
+      );
+      _passwordController.clear();
+    }
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
 
 
