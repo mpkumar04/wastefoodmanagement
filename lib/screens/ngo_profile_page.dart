@@ -1,14 +1,5 @@
 
-class _NgoProfilePageState extends State<NgoProfilePage> {
-  bool _isEditing = false;
-  int _selectedIndex = 3; //Profile tab
 
-  late TextEditingController _nameController;
-  late TextEditingController _emailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _passwordController;
-
-  String ngoLogoAsset = 'assets/ngo_logo.png';
 
 import 'package:flutter/material.dart';
 import 'ngo_home_screen.dart';
@@ -22,7 +13,16 @@ class NgoProfilePage extends StatefulWidget {
   @override
   _NgoProfilePageState createState() => _NgoProfilePageState();
 }
+class _NgoProfilePageState extends State<NgoProfilePage> {
+  bool _isEditing = false;
+  int _selectedIndex = 3; //Profile tab
 
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+
+  String ngoLogoAsset = 'assets/ngo_logo.png';
 
   @override
   void initState() {
@@ -40,6 +40,32 @@ class NgoProfilePage extends StatefulWidget {
     _phoneController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+  Widget _buildReadOnlyProfile() {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundImage: AssetImage(ngoLogoAsset),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(_nameController.text,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+              const SizedBox(height: 6),
+              Text(_emailController.text,
+                  style: TextStyle(fontSize: 18, color: Colors.grey[700])),
+              const SizedBox(height: 6),
+              Text(_phoneController.text,
+                  style: TextStyle(fontSize: 18, color: Colors.grey[700])),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
 
