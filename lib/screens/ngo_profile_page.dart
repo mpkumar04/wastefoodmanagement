@@ -17,11 +17,26 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
   bool _isEditing = false;
   int _selectedIndex = 3; //Profile tab
 
+
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
   late TextEditingController _passwordController;
 
+
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+
+  String ngoLogoAsset = 'assets/ngo_logo.png';
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+  
   String ngoLogoAsset = 'assets/ngo_logo.png';
 
   @override
@@ -41,6 +56,7 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
     _passwordController.dispose();
     super.dispose();
   }
+
   Widget _buildReadOnlyProfile() {
     return Row(
       children: [
@@ -67,5 +83,62 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
       ],
     );
   }
+  
+  Widget _buildEditProfile() {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: _changeProfileImage,
+          child: CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage(ngoLogoAsset),
+          ),
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: _nameController,
+          decoration: const InputDecoration(labelText: 'Name'),
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _emailController,
+          decoration: const InputDecoration(labelText: 'Email'),
+          keyboardType: TextInputType.emailAddress,
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _phoneController,
+          decoration: const InputDecoration(labelText: 'Phone Number'),
+          keyboardType: TextInputType.phone,
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _passwordController,
+          decoration: const InputDecoration(labelText: 'Change Password'),
+          obscureText: true,
+        ),
+      ],
+    );
+  }
 
+  Widget _buildOptionList() {
+    return Column(
+      children: [
+        const Divider(height: 40),
+        _buildListItem(Icons.collections, 'My Collection', () {}),
+        _buildListItem(Icons.timer, 'Donation reminder', () {}),
+        _buildListItem(Icons.lock, 'Change password', () {}),
+        _buildListItem(Icons.settings, 'Settings', () {}),
+      ],
+    );
+  }
+
+  Widget _buildListItem(IconData icon, String title, VoidCallback onTap) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.red),
+      title: Text(title),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: onTap,
+    );
+  }
 
