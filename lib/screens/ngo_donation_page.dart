@@ -118,4 +118,17 @@ SizedBox(
     ),
   ),
 ),
+bottomNavigationBar: BottomNavigationBar(
+  selectedItemColor: const Color(0xFFE53935),
+  unselectedItemColor: Colors.grey,
+  showSelectedLabels: true,
+  showUnselectedLabels: true,
+  type: BottomNavigationBarType.fixed,
+  items: const [
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
+    BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Alerts'),
+    BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+  ],
+),
 
