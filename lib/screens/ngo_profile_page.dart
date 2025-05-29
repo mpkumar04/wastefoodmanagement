@@ -29,6 +29,13 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
   late TextEditingController _passwordController;
+
+  String ngoLogoAsset = 'assets/ngo_logo.png';
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
   
   String ngoLogoAsset = 'assets/ngo_logo.png';
 
@@ -49,6 +56,34 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
     _passwordController.dispose();
     super.dispose();
   }
+
+  Widget _buildReadOnlyProfile() {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundImage: AssetImage(ngoLogoAsset),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(_nameController.text,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+              const SizedBox(height: 6),
+              Text(_emailController.text,
+                  style: TextStyle(fontSize: 18, color: Colors.grey[700])),
+              const SizedBox(height: 6),
+              Text(_phoneController.text,
+                  style: TextStyle(fontSize: 18, color: Colors.grey[700])),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  
   Widget _buildEditProfile() {
     return Column(
       children: [
@@ -106,5 +141,4 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
       onTap: onTap,
     );
   }
-
 
