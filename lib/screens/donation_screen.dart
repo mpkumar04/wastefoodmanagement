@@ -246,6 +246,45 @@ class _DonationPageState extends State<DonationPage> {
               },
             ),
             SizedBox(height: 20),
+            // Confirm Button
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Confirmation Logic
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 14),
+                ),
+                child: Text(
+                  'CONFIRM',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      // Bottom navigation bar
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
+        currentIndex: 1,  // Set to 1 to select the second icon by default
+        onTap: (index) {
+          setState(() {
+            // Handle tab navigation logic here
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: 'Donate'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
+    );
+  }
+}
 
 
 
