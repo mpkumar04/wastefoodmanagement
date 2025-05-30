@@ -1,6 +1,7 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart';
+import 'screens/donation_screen.dart';
+
 
 void main() {
   runApp(WasteFoodManagementApp());
@@ -13,7 +14,7 @@ class WasteFoodManagementApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: DonationPage(),
     );
   }
 }
