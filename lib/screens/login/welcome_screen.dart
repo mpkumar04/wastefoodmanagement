@@ -1,7 +1,7 @@
 // lib/screens/welcome_screen.dart
 import 'package:flutter/material.dart';
-import 'select_role_screen.dart';
 import 'login_screen.dart';
+import 'donor_signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -52,7 +52,7 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SelectRoleScreen()),
+                  MaterialPageRoute(builder: (context) => DonorSignupScreen()),
                 );
               },
               style: ElevatedButton.styleFrom(

@@ -1,5 +1,7 @@
-// lib/screens/donor_signup_screen.dart
+
+import 'package:wastefoodmanagement/authmanagement/auth_management.dart';
 import 'package:flutter/material.dart';
+import 'welcome_screen.dart';
 
 class DonorSignupScreen extends StatefulWidget {
   const DonorSignupScreen({super.key});
@@ -14,10 +16,44 @@ class _DonorSignupScreenState extends State<DonorSignupScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  String selectRole = "Users"; 
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _phoneFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
+ // Default selection is 'Donor'
+
+  // Variable for Role Selection
+  String? selectedRole = 'Donor'; // Default selection is 'Donor'
+
+  final AuthService _authService = AuthService();
+  void signUp() async {
+     String? result = await _authService.signUp(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      name: userNameController.text.trim(),
+      phno: phoneController.text.trim(),
+      role: selectRole,
+     );
+    if (result == null) {
+      // Sign-up successful
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Sign up successful!')),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => WelcomeScreen()
+        ),
+      );
+    }else{
+        ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Sign up Faild!')));
+
+    }
+  }
+
+ 
+
 
   @override
   void dispose() {
@@ -42,25 +78,27 @@ class _DonorSignupScreenState extends State<DonorSignupScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Center(
                   child: Image.asset('assets/images/donor_signup.png', height: 150),
                 ),
-                SizedBox(height: 10),
-                Center(
+                const SizedBox(height: 10),
+                const Center(
                   child: Text(
                     "Create your Donor Account",
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
+                
+                
                 // Text Fields
                 buildTextField(
                   label: "User name",
@@ -68,7 +106,7 @@ class _DonorSignupScreenState extends State<DonorSignupScreen> {
                   icon: Icons.person,
                   nextFocus: _emailFocus,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 buildTextField(
                   label: "Email",
                   controller: emailController,
@@ -77,7 +115,7 @@ class _DonorSignupScreenState extends State<DonorSignupScreen> {
                   nextFocus: _phoneFocus,
                   isEmail: true,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 buildTextField(
                   label: "Phone no",
                   controller: phoneController,
@@ -86,7 +124,7 @@ class _DonorSignupScreenState extends State<DonorSignupScreen> {
                   nextFocus: _passwordFocus,
                   isPhone: true,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 buildTextField(
                   label: "Password",
                   controller: passwordController,
@@ -94,28 +132,74 @@ class _DonorSignupScreenState extends State<DonorSignupScreen> {
                   focusNode: _passwordFocus,
                   isPassword: true,
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 15),
+                
+                
+                DropdownButtonFormField<String>(
+                  value: selectedRole,
+                  decoration: InputDecoration(
+                    labelText: "Select Role",
+                    prefixIcon: Icon(Icons.account_circle),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  items: ['Donor', 'NGO'].map((role) {
+                    return DropdownMenuItem<String>(
+                      value: role,
+                      child: Text(role),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedRole = newValue;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select a role';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+
 
                 // Sign Up button
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // If all fields valid
+                      AuthService().signUp(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                        name: userNameController.text.trim(),
+                        phno: phoneController.text.trim(),
+                        role: selectedRole ?? 'Donor', // Use selectedRole or default to 'Donor'
+);
+                      // Navigate to WelcomeScreen after successful sign-up
+                      Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                        );
+                      });
+
+                      // If all fields are valid
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Sign up successful!')),
+                        const SnackBar(content: Text('Sign up successful!')),
                       );
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
-                    padding: EdgeInsets.symmetric(vertical: 18),
+                    padding: const EdgeInsets.symmetric(vertical: 18),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
+                  child: const Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),

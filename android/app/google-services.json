@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "502231044111",
+    "project_id": "wastefoodmanagement-3be05",
+    "storage_bucket": "wastefoodmanagement-3be05.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502231044111:android:f3abb49cb0ee453b2f537a",
+        "android_client_info": {
+          "package_name": "com.example.wastefoodmanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFSppmDGAcH4ouej228VgF58tiaDNskwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

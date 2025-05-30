@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'donar_notification_screen.dart';
+import 'donar_profile_screen.dart';    // DonorProfileScreen
+import 'donation_screen.dart';          // DonationPage
+import 'donation_details_screen.dart';  // DonationDetailsPage
 
 class DonerHomePage extends StatelessWidget {
   const DonerHomePage({super.key});
@@ -7,27 +11,37 @@ class DonerHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80), // Increase the AppBar height here
+        preferredSize: Size.fromHeight(80),
         child: AppBar(
           backgroundColor: Colors.red,
-          centerTitle: false,  // Disable centerTitle
+          centerTitle: false,
           title: Padding(
-            padding: const EdgeInsets.only(top: 20), // Adjust top margin for title
+            padding: const EdgeInsets.only(top: 20),
             child: Text(
               'NOURISH',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(top: 20, right: 12), // Adjust top margin for profile
-              child: CircleAvatar(
-                radius: 50, // Set the profile circle size to 50 (increased size)
-                backgroundImage: AssetImage('assets/images/profile.jpg'), // Change to actual image path
-                backgroundColor: Colors.grey[300], // Optional, if no image
+              padding: const EdgeInsets.only(top: 20, right: 12),
+              child: GestureDetector(
+                onTap: () {
+                  // Navigate to profile screen on tap of profile photo
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DonorProfileScreen()),
+                  );
+                },
+                child: CircleAvatar(
+                  radius: 24,
+                  backgroundImage: AssetImage('assets/images/pravin.jpg'),
+                  
+                ),
               ),
             ),
           ],
+          leading: null, // This removes the back arrow
         ),
       ),
       body: SingleChildScrollView(
@@ -35,7 +49,7 @@ class DonerHomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSpotlightSection(),
+            _buildSpotlightSection(context),
             SizedBox(height: 16),
             _buildBecomeDonorSection(),
             SizedBox(height: 16),
@@ -43,12 +57,11 @@ class DonerHomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNavBar(),
+      bottomNavigationBar: _buildBottomNavBar(context),
     );
   }
 
-  // Spotlight section with heading, scrollable content, and image on the side
-  Widget _buildSpotlightSection() {
+  Widget _buildSpotlightSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -62,7 +75,6 @@ class DonerHomePage extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Column for Text, Progress Bar, and Button
               Expanded(
                 flex: 2,
                 child: Column(
@@ -76,14 +88,19 @@ class DonerHomePage extends StatelessWidget {
                     Text('25% funds collected - 20 days left', style: TextStyle(fontSize: 12)),
                     SizedBox(height: 12),
                     LinearProgressIndicator(
-                      value: 0.1,
+                      value: 0.25,
                       backgroundColor: Colors.grey[300],
                       color: Colors.green,
                       minHeight: 8,
                     ),
                     SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DonationDetailsPage()),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                       child: Text(
                         'Donate Now',
@@ -93,11 +110,10 @@ class DonerHomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              // Image on the right side
               Expanded(
                 flex: 1,
                 child: Image.asset(
-                  'assets/images/donation.png', // Ensure this image exists
+                  'assets/images/donation.png',
                   width: 100,
                   height: 100,
                 ),
@@ -109,7 +125,6 @@ class DonerHomePage extends StatelessWidget {
     );
   }
 
-  // "Become a Food Donor Today" section with 3 icons
   Widget _buildBecomeDonorSection() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -121,7 +136,6 @@ class DonerHomePage extends StatelessWidget {
     );
   }
 
-  // Icon buttons in "Become a Food Donor Today"
   Widget _buildIconButton(String label, IconData icon) {
     return Column(
       children: [
@@ -136,7 +150,6 @@ class DonerHomePage extends StatelessWidget {
     );
   }
 
-  // Donation Request section
   Widget _buildDonationRequestList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,19 +159,18 @@ class DonerHomePage extends StatelessWidget {
         _buildRequestCard(
           'Share Your Food, Share Your Love',
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'assets/images/hungry2.jpg', // Add actual image here
+          'assets/images/hungry2.jpg',
         ),
         SizedBox(height: 12),
         _buildRequestCard(
           'Share Your Food, Share Your Love',
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          'assets/images/hungry1.jpg', // Add actual image here
+          'assets/images/hungry1.jpg',
         ),
       ],
     );
   }
 
-  // Request card for donation requests
   Widget _buildRequestCard(String title, String description, String imagePath) {
     return Card(
       elevation: 2,
@@ -187,16 +199,36 @@ class DonerHomePage extends StatelessWidget {
     );
   }
 
-  // Bottom navigation bar
-  Widget _buildBottomNavBar() {
+  Widget _buildBottomNavBar(BuildContext context) {
     return BottomNavigationBar(
       selectedItemColor: Colors.red,
       unselectedItemColor: Colors.grey,
       currentIndex: 0,
       onTap: (index) {
-        // TODO: Navigate between tabs
+        switch (index) {
+          case 0:
+            break;
+          case 1:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => DonationPage()),
+            );
+            break;
+          case 2:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationScreen()),
+            );
+            break;
+          case 3:
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => DonorProfileScreen()),
+            );
+            break;
+        }
       },
-      items: [
+      items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: 'Donate'),
         BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),

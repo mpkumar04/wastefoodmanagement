@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class NgoDonationPage extends StatefulWidget {
-  const NgoDonationPage({super.key});
+class NgoDonationScreen extends StatefulWidget {
+  const NgoDonationScreen ({super.key});
 
   @override
-  State<NgoDonationPage> createState() => _NgoDonationPageState();
+  State<NgoDonationScreen> createState() => _NgoDonationPageState();
 }
 
-class _NgoDonationPageState extends State<NgoDonationPage> {
+class _NgoDonationPageState extends State<NgoDonationScreen> {
   late GoogleMapController mapController;
   final LatLng _center = const LatLng(6.9271, 79.8612); // Example: Colombo, Sri Lanka
 

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'ngo_home_screen.dart';
+import 'ngo_donation_map_screen.dart';
+import 'ngo_notification_page.dart';
 
 class NgoProfilePage extends StatefulWidget {
   const NgoProfilePage({super.key});
@@ -9,6 +12,7 @@ class NgoProfilePage extends StatefulWidget {
 
 class _NgoProfilePageState extends State<NgoProfilePage> {
   bool _isEditing = false;
+  int _selectedIndex = 3; // Profile tab
 
   late TextEditingController _nameController;
   late TextEditingController _emailController;
@@ -35,6 +39,38 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
     super.dispose();
   }
 
+  void _onItemTapped(int index) {
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NgoHomeScreen()),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NgoDonationPage()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NgoNotificationPage()),
+        );
+        break;
+      case 3:
+        // Already on Profile
+        break;
+    }
+
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   void _changeProfileImage() {
     if (!_isEditing) return;
     setState(() {
@@ -46,10 +82,9 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
 
   void _toggleEdit() {
     if (_isEditing) {
-      // TODO: Save profile info
       print('Saving profile info...');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profile saved')),
+        const SnackBar(content: Text('Profile saved')),
       );
       _passwordController.clear();
     }
@@ -65,17 +100,17 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
           radius: 50,
           backgroundImage: AssetImage(ngoLogoAsset),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(_nameController.text,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
-              SizedBox(height: 6),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26)),
+              const SizedBox(height: 6),
               Text(_emailController.text,
                   style: TextStyle(fontSize: 18, color: Colors.grey[700])),
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               Text(_phoneController.text,
                   style: TextStyle(fontSize: 18, color: Colors.grey[700])),
             ],
@@ -95,27 +130,27 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
             backgroundImage: AssetImage(ngoLogoAsset),
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         TextField(
           controller: _nameController,
-          decoration: InputDecoration(labelText: 'Name'),
+          decoration: const InputDecoration(labelText: 'Name'),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         TextField(
           controller: _emailController,
-          decoration: InputDecoration(labelText: 'Email'),
+          decoration: const InputDecoration(labelText: 'Email'),
           keyboardType: TextInputType.emailAddress,
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         TextField(
           controller: _phoneController,
-          decoration: InputDecoration(labelText: 'Phone Number'),
+          decoration: const InputDecoration(labelText: 'Phone Number'),
           keyboardType: TextInputType.phone,
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         TextField(
           controller: _passwordController,
-          decoration: InputDecoration(labelText: 'Change Password'),
+          decoration: const InputDecoration(labelText: 'Change Password'),
           obscureText: true,
         ),
       ],
@@ -125,7 +160,7 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
   Widget _buildOptionList() {
     return Column(
       children: [
-        Divider(height: 40),
+        const Divider(height: 40),
         _buildListItem(Icons.collections, 'My Collection', () {}),
         _buildListItem(Icons.timer, 'Donation reminder', () {}),
         _buildListItem(Icons.lock, 'Change password', () {}),
@@ -138,7 +173,7 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
     return ListTile(
       leading: Icon(icon, color: Colors.red),
       title: Text(title),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: const Icon(Icons.arrow_forward_ios),
       onTap: onTap,
     );
   }
@@ -147,31 +182,45 @@ class _NgoProfilePageState extends State<NgoProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account'),
+        title: const Text('Account'),
         backgroundColor: Colors.red,
-        leading: BackButton(),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
             children: [
               _isEditing ? _buildEditProfile() : _buildReadOnlyProfile(),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                 ),
                 onPressed: _toggleEdit,
                 child: Text(_isEditing ? 'Save Profile' : 'Edit Profile'),
               ),
-              if (!_isEditing) _buildOptionList(),  // show options only when not editing
+              if (!_isEditing) _buildOptionList(),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.black54,
+        onTap: _onItemTapped,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        ],
       ),
     );
   }
