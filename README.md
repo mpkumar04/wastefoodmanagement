@@ -1,45 +1,16 @@
-<h1 align="center">🍽️ Waste Food Management App</h1>
+#wastefoodmanagement
 
-<p align="center">
-  <img src="https://cdn.dribbble.com/users/305269/screenshots/5817814/donate-food.gif" width="300" alt="App animation">
-</p>
+A new Flutter project.
 
-<p align="center">
-  A Flutter app that connects food donors with NGOs and needy individuals to reduce food waste and help the community.
-</p>
+## Getting Started
 
----
+This project is a starting point for a Flutter application.
 
-## 📱 Screenshots
+A few resources to get you started if this is your first Flutter project:
 
-| Home Screen | Donation Form | Food List |
-|------------|----------------|------------|
-| ![home](assets/images/home.png) | ![form](assets/images/form.png) | ![list](assets/images/list.png) |
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-> 📌 *Add your actual app screenshots in the `assets/images/` folder and update the file names above.*
-
----
-
-## ✨ Features
-
-✅ Simple user interface with clean navigation  
-✅ Add and manage food donations (with images, description, expiry)  
-✅ NGO users can view and accept donations  
-✅ Firebase Authentication and Firestore integration  
-✅ Real-time updates and state management  
-✅ Firebase Storage for food image uploads  
-✅ Optimized for both Android & iOS  
-
----
-
-## 🧑‍💻 Built With
-
-- **Flutter** – Cross-platform UI framework  
-- **Dart** – Language for Flutter development  
-- **Firebase** – Auth, Firestore & Storage  
-- **Provider / Riverpod** (optional) – State management  
-
----
-
-## 📁 Project Structure
-
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
