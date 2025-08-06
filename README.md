@@ -1,4 +1,4 @@
-#wastefoodmanagement
+wastefoodmanagement
 
 A new Flutter project.
 
